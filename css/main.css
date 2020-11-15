@@ -1,0 +1,81 @@
+body {
+    text-align: center;
+    margin: 10px;
+}
+
+/* Login Modal */
+#login-form {
+    width: 100%;
+}
+
+#login-form-div {
+    display: flex;
+    width: 100%;
+}
+
+#login-txt-div {
+    flex: 1;
+}
+
+#login-txt {
+    width: 100%;
+}
+
+#login-btn-div {
+    flex-basis: 80px;
+    flex-grow: 0;
+}
+
+#login-btn {
+    margin-left: 10px;
+    width: calc(100% - 10px);
+}
+
+
+/* Application Layout */
+#app {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+#app-messages {
+    flex-grow: 1;
+    text-align: left;
+}
+
+#app-form {
+    margin-top: 10px;
+    flex-grow: 0;
+}
+
+/* Messages */
+
+
+/* Send Message Form */
+form {
+    margin: 0;
+}
+
+#send-form {
+    display: flex;
+    width: 100%;
+}
+
+#send-txt-div {
+    flex: 1;
+}
+
+#send-txt {
+    width: 100%;
+}
+
+#send-btn-div {
+    flex-basis: 80px;
+    flex-grow: 0;
+}
+
+#send-btn {
+    margin-left: 10px;
+    width: calc(100% - 10px);
+}

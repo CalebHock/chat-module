@@ -1,11 +1,20 @@
 <html>
 <head>
+    <script>
+        if (typeof module === 'object') {
+            window.module = module; module = undefined;
+        }
+    </script>
+
     <!-- Bootstrap -->
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/main.css"/>
+
     <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 
     <!-- Popper JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -14,16 +23,62 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script src="connection.js"></script>
+
+    <script>
+        $(function() {
+            $("#login-modal").modal('show');
+            $("#login-txt").focus();
+        });
+    </script>
+
+    <script>
+        if (window.module) {
+            module = window.module;
+        }
+    </script>
 </head>
 <body>
-    <h1>It is what it is.</h1>
-    <button class="btn" onclick="sendHi()">HI</button>
+    <!-- Login Modal -->
+    <div class="modal fade" id="login-modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <form id="login-form" class="form-inline" onsubmit="return onNameSubmit(this)">
+                        <div id="login-form-div">
+                            <!-- Text Area -->
+                            <div id="login-txt-div">
+                                <input id="login-txt" class="form-control msg-type" type="text" placeholder="Display name" autofocus>
+                            </div>
+                            <!-- Login Button -->
+                            <div id="login-btn-div">
+                                <input id="login-btn" class="btn btn-primary" type='submit' value="Set">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
-
-    <form>
-        <textarea rows="8" cols="80" id="message"></textarea>
-        <br>
-        <button>Send</button>
-    </form>
+    <!-- Application -->
+    <div id="app">
+        <!-- Messages -->
+        <div id="app-messages"></div>
+        <!-- Send Message Form -->
+        <div id="app-form">
+            <form class="form-inline" onsubmit="return onFormSubmit(this)">
+                <div id="send-form">
+                    <!-- Text Area -->
+                    <div id="send-txt-div">
+                        <input id="send-txt" class="form-control msg-type" type="text" placeholder="Type your message here">
+                    </div>
+                    <!-- Send Button -->
+                    <div id="send-btn-div">
+                        <input id="send-btn" class="btn btn-primary" type='submit' value="Send">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

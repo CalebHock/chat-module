@@ -31,6 +31,35 @@ body {
     width: calc(100% - 10px);
 }
 
+/* Settings Modal */
+#settings-form {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+#settings-form-div {
+    display: flex;
+    width: 100%;
+}
+
+#settings-txt-div {
+    flex: 1;
+}
+
+#settings-txt {
+    width: 100%;
+}
+
+#settings-btn-div {
+    flex-basis: 80px;
+    flex-grow: 0;
+}
+
+#settings-btn {
+    margin-left: 10px;
+    width: calc(100% - 10px);
+}
+
 
 /* Application Layout */
 #app {
@@ -60,6 +89,16 @@ form {
 #send-form {
     display: flex;
     width: 100%;
+}
+
+#send-settings-div {
+    flex-basis: 48px;
+    flex-grow: 0;
+}
+
+#send-settings {
+    margin-right: 10px;
+    height: 100%;
 }
 
 #send-txt-div {

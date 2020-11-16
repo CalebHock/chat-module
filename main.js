@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, remote } = require('electron')
 
 function createWindow () {
   const win = new BrowserWindow({
@@ -12,7 +12,7 @@ function createWindow () {
   })
   win.removeMenu()
   win.loadFile('index.html')
-  // win.webContents.openDevTools()
+  win.webContents.openDevTools()
 }
 
 app.whenReady().then(createWindow)

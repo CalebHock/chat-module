@@ -22,6 +22,9 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/9daabf2342.js" crossorigin="anonymous"></script>
+
     <script src="connection.js"></script>
 
     <script>
@@ -60,6 +63,34 @@
         </div>
     </div>
 
+    <!-- Settings Modal -->
+    <div class="modal fade" id="settings-modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Settings</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="resetSettings()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="settings-modal-body" class="modal-body">
+                    <form id="settings-form" class="form-inline" onsubmit="return onNameChange(this)">
+                        <div id="settings-form-div">
+                            <!-- Text Area -->
+                            <div id="settings-txt-div">
+                                <input id="settings-txt" class="form-control msg-type" type="text" placeholder="Change name" autofocus>
+                            </div>
+                            <!-- Set Button -->
+                            <div id="settings-btn-div">
+                                <input id="settings-btn" class="btn btn-primary" type='submit' value="Change">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Application -->
     <div id="app">
         <!-- Messages -->
@@ -68,6 +99,10 @@
         <div id="app-form">
             <form class="form-inline" onsubmit="return onFormSubmit(this)">
                 <div id="send-form">
+                    <!-- Settings -->
+                    <div id="send-settings-div">
+                        <button id="send-settings" class="btn btn-secondary" type="button" onclick="openSettings()"><i class="fas fa-cog"></i></button>
+                    </div>
                     <!-- Text Area -->
                     <div id="send-txt-div">
                         <input id="send-txt" class="form-control msg-type" type="text" placeholder="Type your message here">

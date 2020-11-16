@@ -4,14 +4,40 @@ const ws = new WebSocket("ws://localhost:8082");
 // Set display name
 let name;
 function onNameSubmit(event) {
-    setName();
-    return false;
-}
-function setName() {
     name = document.getElementById("login-txt").value;
     if (name != "") {
         $("#login-modal").modal('hide');
+        ws.send(JSON.stringify({
+            id: "Server",
+            msg: name + " has connected."
+        }));
     }
+    return false;
+}
+function onNameChange(event) {
+    let input = document.getElementById("settings-txt").value;
+    if (input != "") {
+
+        ws.send(JSON.stringify({
+            id: "Server",
+            msg: name + " changed their name to " + input + "."
+        }));
+
+        name = input;
+        let nameChange = document.getElementById("alert-name-change");
+        if (nameChange != undefined) {
+            nameChange.parentNode.removeChild(nameChange);
+        }
+        nameChange = document.createElement("div");
+        nameChange.id = "alert-name-change";
+        nameChange.setAttribute('class', 'alert');
+        nameChange.setAttribute('class', 'alert-primary');
+        nameChange.textContent = "Name changed to " + name;
+        
+        $("#settings-modal-body").append(nameChange);
+        document.getElementById("settings-txt").value = "";
+    }
+    return false;
 }
 
 // Send message
@@ -32,9 +58,19 @@ function sendMessage() {
 // Receive messge
 ws.addEventListener("message", data => {
     message = JSON.parse(data.data);
-    var newMessage = document.createElement("div");
+    let newMessage = document.createElement("div");
     newMessage.textContent = message.id + ": " + message.msg;
     newMessage.setAttribute("title", new Date().toISOString());
     $("#app-messages").append(newMessage);
     console.log(message.msg);
 });
+
+function openSettings() {
+    $("#settings-modal").modal('show');
+}
+function resetSettings() {
+    let nameChange = document.getElementById("alert-name-change");
+    if (nameChange != undefined) {
+        nameChange.parentNode.removeChild(nameChange);
+    }
+}

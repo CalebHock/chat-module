@@ -16,7 +16,7 @@ function onNameSubmit(event) {
 }
 function onNameChange(event) {
     let input = document.getElementById("settings-txt").value;
-    if (input != "") {
+    if (input != "" && input != name) {
 
         ws.send(JSON.stringify({
             id: "Server",

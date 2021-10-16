@@ -20,7 +20,7 @@ function onNameChange(event) {
 
         ws.send(JSON.stringify({
             id: "Server",
-            msg: id + " changed their id to " + input + "."
+            msg: id + " changed their name to " + input + "."
         }));
 
         id = input;
@@ -32,7 +32,7 @@ function onNameChange(event) {
         nameChange.id = "alert-name-change";
         nameChange.setAttribute('class', 'alert');
         nameChange.setAttribute('class', 'alert-primary');
-        nameChange.textContent = "id changed to " + name;
+        nameChange.textContent = "Name changed to " + id;
         
         $("#settings-modal-body").append(nameChange);
         document.getElementById("settings-txt").value = "";
@@ -41,7 +41,10 @@ function onNameChange(event) {
 }
 
 function disconnect(event) {
-
+    ws.send(JSON.stringify({
+        id: "Server",
+        msg: id + " has disconnected."
+    }));
 }
 
 // Send message

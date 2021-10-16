@@ -7,12 +7,12 @@ function createWindow () {
     minWidth: 300,
     minHeight: 400,
     webPreferences: {
-      nodeIntegration: true
+      contextIsolation: true
     }
   })
   win.removeMenu()
   win.loadFile('index.html')
-  win.webContents.openDevTools()
+  // win.webContents.openDevTools()
 }
 
 app.whenReady().then(createWindow)

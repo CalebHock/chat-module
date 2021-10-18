@@ -70,19 +70,13 @@ function sendMessage() {
 function openConnection(ip_addr, name) {
     ws = new WebSocket("ws://" + ip_addr);
 
-    if(ws.readyState == WebSocket.OPEN) {
-        console.log("Fax");
-    }
+    // wait for websocket connection
 
-    if (name != "" && ws.readyState == WebSocket.OPEN) {
-        $("#login-modal").modal('hide');
-        ws.send(JSON.stringify({
-            name: "Server",
-            msg: name + " has connected."
-        }));
-    } else {
-        return false;
-    }
+    $("#login-modal").modal('hide');
+    ws.send(JSON.stringify({
+        name: "Server",
+        msg: name + " has connected."
+    }));
 
     ws.addEventListener("message", data => {
         message = JSON.parse(data.data);

@@ -1,5 +1,6 @@
 // for production, use 'wss' instead of 'ws'
-const ws = new WebSocket("ws://localhost:8082");
+let ip = "192.168.0.78"
+const ws = new WebSocket("ws://" + ip + ":8082");
 
 // Set display name
 let id;
@@ -7,7 +8,7 @@ function onNameSubmit(event) {
     id = document.getElementById("login-txt").value;
     if (id != "") {
         $("#login-modal").modal('hide');
-        ws.send(JSON.stringify({
+        ws.onopen = () => ws.send(JSON.stringify({
             id: "Server",
             msg: id + " has connected."
         }));
@@ -18,7 +19,7 @@ function onNameChange(event) {
     let input = document.getElementById("settings-txt").value;
     if (input != "" && input != id) {
 
-        ws.send(JSON.stringify({
+        ws.onopen = () => ws.send(JSON.stringify({
             id: "Server",
             msg: id + " changed their name to " + input + "."
         }));
@@ -41,7 +42,7 @@ function onNameChange(event) {
 }
 
 function disconnect(event) {
-    ws.send(JSON.stringify({
+    ws.onopen = () => ws.send(JSON.stringify({
         id: "Server",
         msg: id + " has disconnected."
     }));
@@ -54,7 +55,7 @@ function onFormSubmit(event) {
 }
 function sendMessage() {
     let message = document.getElementById("send-txt").value;
-    ws.send(JSON.stringify({
+    ws.onopen = () => ws.send(JSON.stringify({
         id: id,
         msg: message
     }));

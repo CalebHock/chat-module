@@ -6,9 +6,9 @@ const ws = new WebSocket("ws://" + ip + ":8082");
 let id;
 function onNameSubmit(event) {
     id = document.getElementById("login-txt").value;
-    if (id != "") {
+    if (id != "" && ws.readyState == WebSocket.OPEN) {
         $("#login-modal").modal('hide');
-        ws.onopen = () => ws.send(JSON.stringify({
+        ws.send(JSON.stringify({
             id: "Server",
             msg: id + " has connected."
         }));
@@ -19,7 +19,7 @@ function onNameChange(event) {
     let input = document.getElementById("settings-txt").value;
     if (input != "" && input != id) {
 
-        ws.onopen = () => ws.send(JSON.stringify({
+        ws.send(JSON.stringify({
             id: "Server",
             msg: id + " changed their name to " + input + "."
         }));
@@ -42,7 +42,7 @@ function onNameChange(event) {
 }
 
 function disconnect(event) {
-    ws.onopen = () => ws.send(JSON.stringify({
+    ws.send(JSON.stringify({
         id: "Server",
         msg: id + " has disconnected."
     }));
@@ -55,10 +55,12 @@ function onFormSubmit(event) {
 }
 function sendMessage() {
     let message = document.getElementById("send-txt").value;
-    ws.onopen = () => ws.send(JSON.stringify({
-        id: id,
-        msg: message
-    }));
+    if (message != "") {
+        ws.send(JSON.stringify({
+            id: id,
+            msg: message
+        }));
+    }
 
     document.getElementById("send-txt").value = "";
 }
@@ -76,6 +78,7 @@ ws.addEventListener("message", data => {
 function openSettings() {
     $("#settings-modal").modal('show');
 }
+
 function resetSettings() {
     let nameChange = document.getElementById("alert-name-change");
     if (nameChange != undefined) {

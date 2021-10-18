@@ -1,20 +1,20 @@
 // for production, use 'wss' instead of 'ws'
-let ip = "67.210.179.142:8082"
-const ws = new WebSocket("ws://" + ip);
+// let ip = "67.210.179.142:8082"
+// const ws = new WebSocket("ws://" + ip);
 
-// Set display name
-let id;
+let id = null;
+let ip = null;
+var ws = null;
+
 function onNameSubmit(event) {
     id = document.getElementById("login-txt").value;
-    if (id != "" && ws.readyState == WebSocket.OPEN) {
-        $("#login-modal").modal('hide');
-        ws.send(JSON.stringify({
-            id: "Server",
-            msg: id + " has connected."
-        }));
-    }
+    ip = document.getElementById("ip-txt").value;
+    
+    openConnection(ip, id);
+
     return false;
 }
+
 function onNameChange(event) {
     let input = document.getElementById("settings-txt").value;
     if (input != "" && input != id) {
@@ -46,6 +46,7 @@ function disconnect(event) {
         id: "Server",
         msg: id + " has disconnected."
     }));
+    ws.close();
 }
 
 // Send message
@@ -53,6 +54,7 @@ function onFormSubmit(event) {
     sendMessage();
     return false;
 }
+
 function sendMessage() {
     let message = document.getElementById("send-txt").value;
     if (message != "") {
@@ -65,15 +67,33 @@ function sendMessage() {
     document.getElementById("send-txt").value = "";
 }
 
-// Receive messge
-ws.addEventListener("message", data => {
-    message = JSON.parse(data.data);
-    let newMessage = document.createElement("div");
-    newMessage.textContent = message.id + ": " + message.msg;
-    newMessage.setAttribute("title", new Date().toISOString());
-    $("#app-messages").append(newMessage);
-    console.log(message.msg);
-});
+function openConnection(ip_addr, name) {
+    ws = new WebSocket("ws://" + ip_addr);
+
+    if(ws.readyState == WebSocket.OPEN) {
+        console.log("Fax");
+    }
+
+    if (name != "" && ws.readyState == WebSocket.OPEN) {
+        $("#login-modal").modal('hide');
+        ws.send(JSON.stringify({
+            name: "Server",
+            msg: name + " has connected."
+        }));
+    } else {
+        return false;
+    }
+
+    ws.addEventListener("message", data => {
+        message = JSON.parse(data.data);
+        let newMessage = document.createElement("div");
+        newMessage.textContent = message.id + ": " + message.msg;
+        newMessage.setAttribute("title", new Date().toISOString());
+        $("#app-messages").append(newMessage);
+        console.log(message.msg);
+    });
+}
+
 
 function openSettings() {
     $("#settings-modal").modal('show');

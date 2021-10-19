@@ -1,16 +1,22 @@
 // for production, use 'wss' instead of 'ws'
-// let ip = "67.210.179.142:8082"
-// const ws = new WebSocket("ws://" + ip);
+let ip = "67.210.179.142:8082"
+const ws = new WebSocket("ws://" + ip);
 
-let id = null;
-let ip = null;
-var ws = null;
+let id;
+// let ip = null;
+// var ws = null;
 
 function onNameSubmit(event) {
     id = document.getElementById("login-txt").value;
-    ip = document.getElementById("ip-txt").value;
+    // ip = document.getElementById("ip-txt").value;
     
-    openConnection(ip, id);
+    if (ws.readyState == WebSocket.OPEN) {
+        $("#login-modal").modal('hide');
+        ws.send(JSON.stringify({
+            id: "Server",
+            msg: id + " has connected."
+        }));
+    }
 
     return false;
 }
@@ -67,27 +73,14 @@ function sendMessage() {
     document.getElementById("send-txt").value = "";
 }
 
-function openConnection(ip_addr, name) {
-    ws = new WebSocket("ws://" + ip_addr);
-
-    // wait for websocket connection
-
-    $("#login-modal").modal('hide');
-    ws.send(JSON.stringify({
-        name: "Server",
-        msg: name + " has connected."
-    }));
-
-    ws.addEventListener("message", data => {
-        message = JSON.parse(data.data);
-        let newMessage = document.createElement("div");
-        newMessage.textContent = message.id + ": " + message.msg;
-        newMessage.setAttribute("title", new Date().toISOString());
-        $("#app-messages").append(newMessage);
-        console.log(message.msg);
-    });
-}
-
+ws.addEventListener("message", data => {
+    message = JSON.parse(data.data);
+    let newMessage = document.createElement("div");
+    newMessage.textContent = message.id + ": " + message.msg;
+    newMessage.setAttribute("title", new Date().toISOString());
+    $("#app-messages").append(newMessage);
+    console.log(message.msg);
+});
 
 function openSettings() {
     $("#settings-modal").modal('show');

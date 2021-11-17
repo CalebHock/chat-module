@@ -1,5 +1,6 @@
 // for production, use 'wss' instead of 'ws'
-let ip = "67.210.179.142:8082"
+// let ip = "67.210.179.142:8082"
+let ip = "localhost:8082"
 const ws = new WebSocket("ws://" + ip);
 
 let id;

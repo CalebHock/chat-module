@@ -1,19 +1,27 @@
 // for production, use 'wss' instead of 'ws'
-const ws = new WebSocket("ws://localhost:8082");
+// let ip = "67.210.179.142:8082"
+let ip = "localhost:8082"
+const ws = new WebSocket("ws://" + ip);
 
-// Set display name
 let id;
+// let ip = null;
+// var ws = null;
+
 function onNameSubmit(event) {
     id = document.getElementById("login-txt").value;
-    if (id != "") {
+    // ip = document.getElementById("ip-txt").value;
+    
+    if (ws.readyState == WebSocket.OPEN) {
         $("#login-modal").modal('hide');
         ws.send(JSON.stringify({
             id: "Server",
             msg: id + " has connected."
         }));
     }
+
     return false;
 }
+
 function onNameChange(event) {
     let input = document.getElementById("settings-txt").value;
     if (input != "" && input != id) {
@@ -45,6 +53,7 @@ function disconnect(event) {
         id: "Server",
         msg: id + " has disconnected."
     }));
+    ws.close();
 }
 
 // Send message
@@ -52,17 +61,19 @@ function onFormSubmit(event) {
     sendMessage();
     return false;
 }
+
 function sendMessage() {
     let message = document.getElementById("send-txt").value;
-    ws.send(JSON.stringify({
-        id: id,
-        msg: message
-    }));
+    if (message != "") {
+        ws.send(JSON.stringify({
+            id: id,
+            msg: message
+        }));
+    }
 
     document.getElementById("send-txt").value = "";
 }
 
-// Receive messge
 ws.addEventListener("message", data => {
     message = JSON.parse(data.data);
     let newMessage = document.createElement("div");
@@ -75,6 +86,7 @@ ws.addEventListener("message", data => {
 function openSettings() {
     $("#settings-modal").modal('show');
 }
+
 function resetSettings() {
     let nameChange = document.getElementById("alert-name-change");
     if (nameChange != undefined) {

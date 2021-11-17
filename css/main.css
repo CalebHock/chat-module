@@ -9,26 +9,32 @@ body {
 }
 
 #login-form-div {
-    display: flex;
     width: 100%;
 }
 
-#login-txt-div {
-    flex: 1;
+#login-ip-txt-div {
+    width: 100%;
+}
+
+#login-name-txt-div {
+    margin-top: 10px;
+    width: 100%;
 }
 
 #login-txt {
     width: 100%;
 }
 
+#ip-txt {
+    width: 100%;
+}
+
 #login-btn-div {
-    flex-basis: 80px;
-    flex-grow: 0;
+    width: 20%;
+    margin: 10px auto auto auto;
 }
 
 #login-btn {
-    margin-left: 10px;
-    width: calc(100% - 10px);
 }
 
 /* Settings Modal */

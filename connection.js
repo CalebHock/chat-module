@@ -10,7 +10,7 @@ let id;
 function onNameSubmit(event) {
     id = document.getElementById("login-txt").value;
     // ip = document.getElementById("ip-txt").value;
-    
+
     if (ws.readyState == WebSocket.OPEN) {
         $("#login-modal").modal('hide');
         ws.send(JSON.stringify({
@@ -41,7 +41,7 @@ function onNameChange(event) {
         nameChange.setAttribute('class', 'alert');
         nameChange.setAttribute('class', 'alert-primary');
         nameChange.textContent = "Name changed to " + id;
-        
+
         $("#settings-modal-body").append(nameChange);
         document.getElementById("settings-txt").value = "";
     }
@@ -81,6 +81,7 @@ ws.addEventListener("message", data => {
     newMessage.setAttribute("title", new Date().toISOString());
     $("#app-messages").append(newMessage);
     console.log(message.msg);
+    window.scrollTo(0,document.body.scrollHeight);
 });
 
 function openSettings() {

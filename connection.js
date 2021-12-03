@@ -1,15 +1,10 @@
 // for production, use 'wss' instead of 'ws'
-// let ip = "67.210.179.142:8082"
-let ip = "localhost:8082"
-const ws = new WebSocket("ws://" + ip);
-
+let ip = "localhost"
+const ws = new WebSocket("ws://" + ip + ":8082");
 let id;
-// let ip = null;
-// var ws = null;
 
 function onNameSubmit(event) {
     id = document.getElementById("login-txt").value;
-    // ip = document.getElementById("ip-txt").value;
 
     if (ws.readyState == WebSocket.OPEN) {
         $("#login-modal").modal('hide');
@@ -78,7 +73,7 @@ ws.addEventListener("message", data => {
     message = JSON.parse(data.data);
     let newMessage = document.createElement("div");
     newMessage.textContent = message.id + ": " + message.msg;
-    newMessage.setAttribute("title", new Date().toISOString());
+    newMessage.setAttribute("title", new Date().toTimeString().split(" ")[0]);
     $("#app-messages").append(newMessage);
     console.log(message.msg);
     window.scrollTo(0,document.body.scrollHeight);

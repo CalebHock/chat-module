@@ -78,18 +78,18 @@
                     </button>
                 </div>
                 <div id="settings-modal-body" class="modal-body">
-                    <form id="settings-form" class="form-inline" onsubmit="return onNameChange(this)">
-                        <div id="settings-form-div">
+                    <!-- <form id="settings-form" class="form-inline" onsubmit="return onNameChange(this)">
+                        <div id="settings-form-div"> -->
                             <!-- Text Area -->
-                            <div id="settings-txt-div">
+                            <!-- <div id="settings-txt-div">
                                 <input id="settings-txt" class="form-control msg-type" type="text" placeholder="Change name" autofocus>
-                            </div>
+                            </div> -->
                             <!-- Set Button -->
-                            <div id="settings-btn-div">
+                            <!-- <div id="settings-btn-div">
                                 <input id="settings-btn" class="btn btn-primary" type='submit' value="Change">
                             </div>
                         </div>
-                    </form>
+                    </form> -->
                     <form id="disconnect-form" class="form-inline" onsubmit="return disconnect(this)">
                         <div id="disconnect-btn-div">
                             <input id="disconnect-btn" class="btn btn-danger" type='submit' value="Disconnect">
@@ -103,15 +103,17 @@
     <!-- Whiteboard -->
     <div id="wb">
         <div id="wb-board">
-            
+
         </div>
         <div id="wb-users">
+            <h5 class="modal-title">Users</h5>
             <div id="wb-users-list"></div>
         </div>
     </div>
 
     <!-- Messages -->
     <div id="app">
+        <h5 class="modal-title" style="text-align: left;">Messages</h5>
         <!-- Sent/Receieved Messages -->
         <div id="app-messages"></div>
         <!-- Send Message Form -->

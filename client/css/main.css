@@ -69,18 +69,22 @@ body {
 /* Whiteboard Layout */
 #wb {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     height: 50%;
+    width: 100%;
 }
 
 #wb-board {
-    background-color: violet;
+    width: calc(100% - 160px);
     height: 100%;
+    border: 2px solid lightgray;
 }
 
 #wb-users {
-    background-color: tomato;
+    width: 150px;
     height: 100%;
+    text-align: left;
+    margin-left: 10px;
 }
 
 
@@ -103,7 +107,6 @@ body {
 }
 
 /* Messages */
-
 
 /* Send Message Form */
 form {

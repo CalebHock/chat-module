@@ -1,6 +1,6 @@
-// let ip = "localhost"
-let ip = "67.210.179.142"
-const ws = new WebSocket("ws://" + ip + ":8082");
+let ip = "localhost"
+// let ip = "67.210.179.142";
+const ws = new WebSocket("ws://" + ip + ":8083");
 let id;
 
 function onNameSubmit(event) {
@@ -78,6 +78,21 @@ ws.addEventListener("message", data => {
     $("#app-messages").append(newMessage);
     console.log(message.msg);
     window.scrollTo(0,document.body.scrollHeight);
+
+    if (message.id == "Server") {
+        if (message.msg.split(" ")[2] == "connected.") {
+            console.log("User has joined.");
+
+        }
+
+        if (message.msg.split(" ")[2] == "disconnected.") {
+            console.log("User has left.");
+
+        }
+    }
+
+    var objDiv = document.getElementById("app-messages");
+    objDiv.scrollTop = objDiv.scrollHeight;
 });
 
 function openSettings() {

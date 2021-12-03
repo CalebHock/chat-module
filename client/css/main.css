@@ -66,17 +66,35 @@ body {
     width: calc(100% - 10px);
 }
 
+/* Whiteboard Layout */
+#wb {
+    display: flex;
+    flex-direction: column;
+    height: 50%;
+}
+
+#wb-board {
+    background-color: violet;
+    height: 100%;
+}
+
+#wb-users {
+    background-color: tomato;
+    height: 100%;
+}
+
 
 /* Application Layout */
 #app {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: 50%;
 }
 
 #app-messages {
     flex-grow: 1;
     text-align: left;
+    overflow-y: auto;
 }
 
 #app-form {

@@ -1,10 +1,11 @@
-// for production, use 'wss' instead of 'ws'
-let ip = "localhost"
+// let ip = "localhost"
+let ip = "67.210.179.142"
 const ws = new WebSocket("ws://" + ip + ":8082");
 let id;
 
 function onNameSubmit(event) {
     id = document.getElementById("login-txt").value;
+    // ip = document.getElementById("ip-txt").value;
 
     if (ws.readyState == WebSocket.OPEN) {
         $("#login-modal").modal('hide');

@@ -1,13 +1,8 @@
-import React from "react";
-import io from 'socket.io-client';
-
-import './style.css';
-
 class Board extends React.Component
 {
 
     timeout;
-    socket = io.connect("http://localhost:5000");
+    socket = io.connect("http://localhost:8084");
     ctx;
 
     // eslint-disable-next-line
@@ -41,8 +36,10 @@ class Board extends React.Component
 
         var sketch = document.querySelector('#sketch');
         var sketch_style = getComputedStyle(sketch);
-        canvas.width = parseInt(sketch_style.getPropertyValue('width'));
-        canvas.height = parseInt(sketch_style.getPropertyValue('height'));
+        // canvas.width = parseInt(sketch_style.getPropertyValue('width'));
+        // canvas.height = parseInt(sketch_style.getPropertyValue('height'));
+        canvas.width = 330;
+        canvas.height = 335;
 
         var mouse = {x: 0, y: 0};
         var last_mouse = {x: 0, y: 0};
@@ -89,11 +86,78 @@ class Board extends React.Component
 
     render() {
         return (
-            <div class="sketch" id="sketch">
+            <div className="sketch" id="sketch">
                 <canvas className="board" id="board"></canvas>
             </div>
         )
     }
 }
 
-export default Board
+class Container extends React.Component
+{
+    // eslint-disable-next-line
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            color: "#000000",
+            size: "5"
+        }
+    }
+
+    changeColor(params) {
+        this.setState({
+            color: params.target.value
+        })
+    }
+
+    changeSize(params) {
+        this.setState({
+            size: params.target.value
+        })
+    }
+
+
+    render() {
+
+        return(
+            <div className="container">
+                <div className="tools-section">
+                    <div className="color-picker">
+                        Select Brush Color : &nbsp;
+                        <input type="color" value={this.state.color} onChange={this.changeColor.bind(this)}/>
+                    </div>
+
+                    <div className="brush-size">
+                        Select Brush Size : &nbsp;
+                        <select value={this.state.size} onChange={this.changeSize.bind(this)}>
+                            <option>5</option>
+                            <option>10</option>
+                            <option>15</option>
+                            <option>20</option>
+                            <option>25</option>
+                            <option>30</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div className="board-container">
+                    <Board color={this.state.color} size={this.state.size}></Board>
+                </div>
+            </div>
+        )
+    }
+}
+
+function App() {
+  return (
+    <Container/>
+  );
+}
+
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('wb-board')
+);

@@ -2,10 +2,11 @@ const express = require("express");
 const WebSocket = require("ws");
 const SocketServer = require("ws").Server;
 
+const wbServer = require('http').createServer(express);
+const io = require('socket.io')(wbServer);
+
 const server = express().listen(8083);
 const wss = new SocketServer({ server });
-
-// const wss = new WebSocket.Server({ port: 8083 });
 
 let ids = []
 
@@ -57,3 +58,16 @@ wss.on("connection", ws => {
 
     // ws.on('close', () => console.log('[Server] Client disconnected.'));
 });
+
+io.on('connection', (socket) => {
+    console.log('User Online');
+
+    socket.on('canvas-data', (data) => {
+        socket.broadcast.emit('canvas-data', data);
+    })
+})
+
+let server_port = 8084;
+wbServer.listen(server_port, () => {
+    console.log("Started on : " + server_port);
+})
